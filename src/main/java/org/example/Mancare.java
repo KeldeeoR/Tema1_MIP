@@ -1,15 +1,21 @@
 package org.example;
 
-public final class Mancare extends Produs {
+public non-sealed class Mancare extends Produs {
     private final double gramaj;
+    private final boolean vegetarian;
 
-    public Mancare(String nume, double pret, double gramaj) {
+    public Mancare(String nume, double pret, double gramaj, boolean vegetarian) {
         super(nume, pret);
         this.gramaj = gramaj;
+        this.vegetarian = vegetarian;
+    }
+
+    public boolean isVegetarian() {
+        return vegetarian;
     }
 
     @Override
     public String detalii() {
-        return "Gramaj : " + gramaj + "g";
+        return "Gramaj : " + gramaj + "g" + (vegetarian ? " (Vegetarian)" : "");
     }
 }
