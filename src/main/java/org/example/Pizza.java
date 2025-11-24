@@ -58,4 +58,18 @@ public final class Pizza extends Mancare {
             return new Pizza(this);
         }
     }
+
+    public String getBlat() {
+        return blat;
+    }
+
+    public String getSos() {
+        return sos;
+    }
+
+    public List<String> getToppinguri() {
+        return toppinguri;
+    }
+
+
 }

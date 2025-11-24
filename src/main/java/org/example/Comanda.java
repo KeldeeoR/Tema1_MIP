@@ -7,9 +7,22 @@ public class Comanda {
 
     private final Map<Produs, Integer> produse = new HashMap<>();
 
-    private static double TVA = 0.09;  // 9%
+    private static double TVA = 0.09;  // valoare default (daca config.json lipseste)
+
+    public Map<Produs, Integer> getProduse() {
+        return produse;
+    }
+
+    public static double getTva() {
+        return TVA;
+    }
 
     private DiscountStrategy strategieDiscount = null;
+
+    // === Iteratia 4: setter pentru TVA ===
+    public static void setTva(double tva) {
+        TVA = tva;
+    }
 
     public void setStrategieDiscount(DiscountStrategy strategie) {
         this.strategieDiscount = strategie;
@@ -28,12 +41,12 @@ public class Comanda {
             totalFaraTVA += produs.getPret() * cantitate;
         }
 
-        // Aplicam discount-ul daca exista
+        // Aplicăm discount-ul dacă există
         if (strategieDiscount != null) {
             totalFaraTVA = strategieDiscount.aplicaDiscount(totalFaraTVA, produse);
         }
 
-        // Aplicam TVA
+        // Aplicăm TVA
         return totalFaraTVA * (1 + TVA);
     }
 }

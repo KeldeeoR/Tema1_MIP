@@ -10,9 +10,14 @@ public non-sealed class Mancare extends Produs {
         this.vegetarian = vegetarian;
     }
 
+    public double getGramaj() {
+        return gramaj;
+    }
+
     public boolean isVegetarian() {
         return vegetarian;
     }
+
 
     @Override
     public String detalii() {

@@ -8,6 +8,11 @@ public final class Bautura extends Produs {
         this.volum = volum;
     }
 
+    public double getVolum() {
+        return volum;
+    }
+
+
     @Override
     public String detalii() {
         return "Volum : " + volum + "ml";
