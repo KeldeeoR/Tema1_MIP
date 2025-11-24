@@ -1,7 +1,7 @@
 package org.example;
 
-public class Bautura extends Produs {
-    private double volum;
+public final class Bautura extends Produs {
+    private final double volum;
 
     public Bautura(String nume, double pret, double volum) {
         super(nume, pret);

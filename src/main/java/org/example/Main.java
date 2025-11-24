@@ -1,21 +1,51 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
-        List<Produs> meniu = new ArrayList<>();
 
-        meniu.add(new Mancare("Pizza Margherita", 45.0, 450));
-        meniu.add(new Mancare("Paste Carbonara", 52.5, 400));
-        meniu.add(new Bautura("Limonada", 15.0, 400));
-        meniu.add(new Bautura("Apa Plata", 8.0, 500));
+        Comanda comanda = new Comanda();
 
-        System.out.println("−−− Meniu Restaurantul \"La Andrei\" −−−");
-        for (Produs produs : meniu) {
-            System.out.println("> " + produs + " − " + produs.detalii());
-        }
-        System.out.println("−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−");
+        // Adaugam produse
+        comanda.adaugaProdus(new Mancare("Pizza Margherita", 45, 450), 2);
+        comanda.adaugaProdus(new Bautura("Limonada", 15, 400), 1);
+
+
+        // Strategie Happy Hour
+        DiscountStrategy happyHour = (total, produse) -> {
+            double reducere = 0;
+            for (var entry : produse.entrySet()) {
+                if (entry.getKey() instanceof Bautura) {
+                    reducere += entry.getKey().getPret() * entry.getValue() * 0.20;
+                }
+            }
+            return total - reducere;
+        };
+
+        DiscountStrategy valentinesDay =
+                (total, produse) -> total * 0.90;
+
+        DiscountStrategy pizzaPlusDrink = (total, produse) -> {
+            int pizzaCount = 0;
+            int drinkCount = 0;
+
+            for (var e : produse.entrySet()) {
+                if (e.getKey() instanceof Mancare)
+                    pizzaCount += e.getValue();
+                else if (e.getKey() instanceof Bautura)
+                    drinkCount += e.getValue();
+            }
+
+            int freeDrinks = Math.min(pizzaCount, drinkCount);
+            return total - freeDrinks * 15; // 15 lei limonada
+        };
+
+        DiscountStrategy weekendSpecial = (total, produse) -> {
+            return total - 5; // reducere fixa de 5 lei
+        };
+
+
+        comanda.setStrategieDiscount(valentinesDay);
+
+        System.out.println("Total de plata: " + comanda.calculeazaTotal());
     }
 }

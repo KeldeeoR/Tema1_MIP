@@ -1,7 +1,7 @@
 package org.example;
 
-public class Mancare extends Produs {
-    private double gramaj;
+public final class Mancare extends Produs {
+    private final double gramaj;
 
     public Mancare(String nume, double pret, double gramaj) {
         super(nume, pret);
